@@ -36,7 +36,6 @@ public class TestRegistration {
         RestAssured.baseURI = Configuration.URL_STELLAR_BURGERS;
         user = new User();
 
-
     }
 
     @Test
@@ -45,11 +44,11 @@ public class TestRegistration {
 
         driver.get(Configuration.STELLAR_BURGER_URL);
 
-        mainPageObjects mainPage = new mainPageObjects(driver);
+        MainPageObjects mainPage = new MainPageObjects(driver);
         mainPage.waitForMainPageLoad();
         mainPage.personalAccountLinkClick();
 
-        authorizationPageObjects authorizationPage = new authorizationPageObjects(driver);
+        AuthorizationPageObjects authorizationPage = new AuthorizationPageObjects(driver);
         authorizationPage.waitForAuthorizationPageLoad();
         authorizationPage.scrollPageTillSignUpLink();
         authorizationPage.signUpLinkClick();
@@ -72,11 +71,11 @@ public class TestRegistration {
 
         driver.get(Configuration.STELLAR_BURGER_URL);
 
-        mainPageObjects mainPage = new mainPageObjects(driver);
+        MainPageObjects mainPage = new MainPageObjects(driver);
         mainPage.waitForMainPageLoad();
         mainPage.personalAccountLinkClick();
 
-        authorizationPageObjects authorizationPage = new authorizationPageObjects(driver);
+        AuthorizationPageObjects authorizationPage = new AuthorizationPageObjects(driver);
         authorizationPage.waitForAuthorizationPageLoad();
         authorizationPage.scrollPageTillSignUpLink();
         authorizationPage.signUpLinkClick();

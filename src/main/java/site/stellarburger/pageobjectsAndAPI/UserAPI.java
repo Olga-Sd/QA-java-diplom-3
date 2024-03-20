@@ -14,6 +14,18 @@ public class UserAPI {
     public static final String logoutUserAPIPath = "/api/auth/logout";
     public static final String updateUserAPIPath = "/api/auth/user"; // + PATCH
     public static final String deleteUserAPIPath = "/api/auth/user"; // + DELETE
+
+    @Step("Create new user")
+    public static Response createUser(User user) {
+        Response responseCreate = given()
+                .header("Content-type", "application/json")
+                .and()
+                .body(user)
+                .when()
+                .post(newUserAPIPath);
+        return responseCreate;
+    }
+
     @Step("Login user and get authToken in response")
     public static Response loginUserAndGetToken(User user) {
 

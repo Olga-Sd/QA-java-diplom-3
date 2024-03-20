@@ -5,16 +5,19 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-public class mainPageObjects {
+public class MainPageObjects {
 
     WebDriver driver;
     // конструктор экземпляра страницы
-    public mainPageObjects(WebDriver driver) {
+    public MainPageObjects(WebDriver driver) {
         this.driver = driver;
     }
 
     //локатор кнопки "Личный кабинет" в правом верхнем углу хедера
     private final By personalAccountLink =  By.xpath(".//*[text()='Личный Кабинет']");
+
+    // локатор кнопки "Войти в аккаунт"
+    private final By signInButton = By.xpath(".//button[text()='Войти в аккаунт']");
 
 
     public void waitForMainPageLoad() {
@@ -24,6 +27,10 @@ public class mainPageObjects {
 
     public void personalAccountLinkClick(){
         driver.findElement(personalAccountLink).click();
+    }
+
+    public void signInButtonClick(){
+        driver.findElement(signInButton).click();
     }
 
 }

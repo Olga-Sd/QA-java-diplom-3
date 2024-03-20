@@ -9,12 +9,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 
-public class authorizationPageObjects {
+public class AuthorizationPageObjects {
 
     WebDriver driver;
 
     // конструктор экземпляра страницы
-    public authorizationPageObjects(WebDriver driver) {
+    public AuthorizationPageObjects(WebDriver driver) {
         this.driver = driver;
     }
 
@@ -31,11 +31,11 @@ public class authorizationPageObjects {
     private final By passwordInputField = By.xpath(".//*[@name='Пароль']");
     // локатор кнопки "Зарегистрироваться"
     private final By signUpButton = By.xpath(".//button[text()='Зарегистрироваться']");
-
+    // локатор для сообщения о некорректном пароле
     private final By tooShortPasswordWarning = By.xpath(".//*[text()='Некорректный пароль']");
-
-
-
+    // локатор ссылки "Войти"
+    private final By signInLink = By.xpath(".//*[text()='Войти']");
+    private final By passwordRecoveryLink = By.xpath(".//*[text()='Восстановить пароль']");
 
 
     // метод ожидания загрузки страницы - ожидаем видимость кнопки "Войти"
@@ -50,6 +50,18 @@ public class authorizationPageObjects {
                 driver.findElement(signUpLink));
     }
 
+    // прокрутка страницы до ссылки "Войти" и клик по ней
+    public void scrollPageTillSignInLinkAndClick() {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();",
+                driver.findElement(signInLink));
+        driver.findElement(signInLink).click();
+    }
+    // прокрутка страницы до ссылки "Восстановить пароль" и клик по ней
+    public void scrollPageTillPasswordRecoveryLinkAndClick() {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();",
+                driver.findElement(passwordRecoveryLink));
+        driver.findElement(passwordRecoveryLink).click();
+    }
     // клик по кнопке "Зарегистрироваться" и ожидание появления поля "Имя"
     public void signUpLinkClick() {
         driver.findElement(signUpLink).click();
@@ -73,7 +85,20 @@ public class authorizationPageObjects {
 
     }
 
-    public boolean isTooShortPasswordWarningVisible(){
+    // Заполняем поля для входа и нажимаем кнопку "Войти"
+    public void fillSignInFieldsAndClickSignInButton(User user) {
+        driver.findElement(nameInputField).click();
+        driver.findElement(nameInputField).sendKeys(user.getEmail());
+
+        driver.findElement(passwordInputField).click();
+        driver.findElement(passwordInputField).sendKeys(user.getPassword());
+
+        driver.findElement(enterButton).click();
+    }
+
+
+    // Определяем, видна ли надпись "Некорректный пароль"
+    public boolean isTooShortPasswordWarningVisible() {
         new WebDriverWait(driver, Duration.ofSeconds(5)).until(driver ->
                 driver.findElement(tooShortPasswordWarning).getText() != null);
         return driver.findElement(tooShortPasswordWarning).isDisplayed();
