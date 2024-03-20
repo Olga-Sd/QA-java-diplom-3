@@ -31,13 +31,15 @@ public class TestPagesSwitchOnClick {
 
     @Before
     public void setUp() {
-        //Используем менеджер для подготовки драйверов
-        ChromeOptions options = new ChromeOptions(); // Драйвер для браузера
+
+        ChromeOptions options = new ChromeOptions();
         options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
-//        WebDriverManager.firefoxdriver().setup();
-//        driver = new FirefoxDriver();
+
+//        String browserType =  "chrome"; //System.getProperty("webdriver.driver");
+//        Browser testBrowser = new Browser(browserType);
+//        driver = testBrowser.getDriver();
 
         RestAssured.baseURI = Configuration.URL_STELLAR_BURGERS;
         user = new User();
@@ -95,7 +97,6 @@ public class TestPagesSwitchOnClick {
     public void testPagesSwitchAfterConstructorLinkClick() {
 
         driver.get(Configuration.STELLAR_BURGER_URL);
-        driver.manage().window().maximize();
 
         // Заходим на главную страницу и кликаем кнопку "Войти в аккаунт"
         MainPageObjects mainPage = new MainPageObjects(driver);

@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+
 import static org.junit.Assert.assertEquals;
 
 // Тестовый класс содержит проверки для входа и выхода из приложения зарегистрированного пользователя:
@@ -32,8 +33,10 @@ public class TestSignInAndOutApp {
         options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
-//        WebDriverManager.firefoxdriver().setup();
-//        driver = new FirefoxDriver();
+
+//        String browserType =  System.getProperty("webdriver.driver");
+//        Browser testBrowser = new Browser(browserType);
+//        driver = testBrowser.getDriver();
 
         RestAssured.baseURI = Configuration.URL_STELLAR_BURGERS;
         user = new User();

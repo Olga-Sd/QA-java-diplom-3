@@ -29,13 +29,15 @@ public class TestRegistration {
 
     @Before
     public void setUp() {
-        //Используем менеджер для подготовки драйверов
-        ChromeOptions options = new ChromeOptions(); // Драйвер для браузера
+
+        ChromeOptions options = new ChromeOptions();
         options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
-//        WebDriverManager.firefoxdriver().setup();
-//        driver = new FirefoxDriver();
+
+//        String browserType =  System.getProperty("webdriver.driver");
+//        Browser testBrowser = new Browser(browserType);
+//        driver = testBrowser.getDriver();
 
         RestAssured.baseURI = Configuration.URL_STELLAR_BURGERS;
         user = new User();
