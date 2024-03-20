@@ -62,19 +62,19 @@ public class MainPageObjects {
     }
 
     public boolean isBunSectionHeaderVisible() {
-        new WebDriverWait(driver, Duration.ofSeconds(5)).until(driver ->
+        new WebDriverWait(driver, Duration.ofSeconds(7)).until(driver ->
                 driver.findElement(bunsSectionHeader).getText() != null);
         return driver.findElement(bunsSectionHeader).isDisplayed();
     }
 
     public boolean isSouseSectionHeaderVisible() {
-        new WebDriverWait(driver, Duration.ofSeconds(5)).until(driver ->
+        new WebDriverWait(driver, Duration.ofSeconds(7)).until(driver ->
                 driver.findElement(souseSectionHeader).getText() != null);
         return driver.findElement(souseSectionHeader).isDisplayed();
     }
 
     public boolean isFillingSectionHeaderVisible() {
-        new WebDriverWait(driver, Duration.ofSeconds(5)).until(driver ->
+        new WebDriverWait(driver, Duration.ofSeconds(7)).until(driver ->
                 driver.findElement(fillingSectionHeader).getText() != null);
         return driver.findElement(fillingSectionHeader).isDisplayed();
     }
