@@ -3,26 +3,33 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-//import org.openqa.selenium. сюда Яндекс!!!
 
-public class Driver {
+
+public class Browser {
 
     WebDriver driver;
-    public Driver(String browserName) {
-        ChromeOptions options = new ChromeOptions(); // Драйвер для браузера
+    public Browser(String browserName) {
+        ChromeOptions options = new ChromeOptions();
         options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
         switch (browserName) {
             case "chrome":
+
                 WebDriverManager.chromedriver().setup();
                 this.driver = new ChromeDriver();
+                break;
             case "yandex":
-                System.setProperty("webdriver.chrome.driver", "C:/WebDriver/YandexDriver/yandexdriver-24.1.0.2570-win64");
-                options.setBinary("\"C:\\WebDriver\\YandexDriver\\yandexdriver-24.1.0.2570-win64\"");
+                System.setProperty("webdriver.chrome.driver", "resources/yandexdriver-24.1.0.2570-win64/yandexdriver.exe");
+                options.setBinary("C:/Users/user/AppData/Local/Yandex/YaPin/YandexWorking.exe");
+                WebDriverManager.chromedriver().setup();
                 this.driver = new ChromeDriver(options);
-
+                break;
             default:
                 WebDriverManager.firefoxdriver().setup();
                 this.driver = new FirefoxDriver();
         }
+    }
+
+    public WebDriver getDriver() {
+        return driver;
     }
 }
