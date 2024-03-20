@@ -35,7 +35,14 @@ public class AuthorizationPageObjects {
     private final By tooShortPasswordWarning = By.xpath(".//*[text()='Некорректный пароль']");
     // локатор ссылки "Войти"
     private final By signInLink = By.xpath(".//*[text()='Войти']");
+    // локатор ссылки "Восстановить пароль"
     private final By passwordRecoveryLink = By.xpath(".//*[text()='Восстановить пароль']");
+    // локтор заголовка "Вход"
+    private final By entranceTitle = By.xpath(".//*[text()='Вход']");
+    // локатор ссылки "Конструктор" в хедере
+    private final By constructorLink = By.xpath(".//*[text()='Конструктор']");
+    // локатор логотопа в хедере
+    private final By headerLogo = By.className("AppHeader_header__logo__2D0X2");
 
 
     // метод ожидания загрузки страницы - ожидаем видимость кнопки "Войти"
@@ -103,6 +110,26 @@ public class AuthorizationPageObjects {
                 driver.findElement(tooShortPasswordWarning).getText() != null);
         return driver.findElement(tooShortPasswordWarning).isDisplayed();
     }
+
+    // Определяем, виден ли заголовок "Вход"
+    public boolean isTitleEntranceVisible() {
+        new WebDriverWait(driver, Duration.ofSeconds(5)).until(driver ->
+                driver.findElement(entranceTitle).getText() != null);
+        return driver.findElement(entranceTitle).isDisplayed();
+    }
+
+    // Клик по ссылке "Конструктор"
+    public void constructorLinkClick() {
+
+        driver.findElement(constructorLink).click();
+    }
+
+    // клик по логотипу в хедере
+
+    public void headerLogoClick(){
+        driver.findElement(headerLogo).click();
+    }
+
 
 
 }

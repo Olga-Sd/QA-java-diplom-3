@@ -24,4 +24,8 @@ public class ProfilePageObjects {
         return driver.findElement(exitButton).isDisplayed();
     }
 
+    public void exitButtonClick(){
+        driver.findElement(exitButton).click();
+    }
+
 }

@@ -14,11 +14,15 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import static org.junit.Assert.assertEquals;
 
-
-public class TestSignInApp {
+// Тестовый класс содержит проверки для входа и выхода из приложения зарегистрированного пользователя:
+//        -вход по кнопке «Войти в аккаунт» на главной,
+//        -вход через кнопку «Личный кабинет»,
+//        -вход через кнопку в форме регистрации,
+//        -вход через кнопку в форме восстановления пароля
+//        -выход по кнопке "Выйти" в личном кабинете
+public class TestSignInAndOutApp {
 
     WebDriver driver;
-
     User user;
 
     @Before
@@ -162,6 +166,43 @@ public class TestSignInApp {
         assertEquals(profilePage.isExitButtonVisible(), true);
 
     }
+
+    @Test
+    @DisplayName("Log out with button 'Exit' on the personal Acc page")
+    public void testPerspnalAccExitButton() {
+        driver.get(Configuration.STELLAR_BURGER_URL);
+        driver.manage().window().maximize();
+
+        UserAPI.createUser(user);
+
+        // Заходим на главную страницу и кликаем кнопку "Войти в аккаунт"
+        MainPageObjects mainPage = new MainPageObjects(driver);
+        mainPage.waitForMainPageLoad();
+        mainPage.signInButtonClick();
+
+        // Заходим на страницу авторизации, заполняем поля, жмем кнопку "Войти"
+        AuthorizationPageObjects authorizationPage = new AuthorizationPageObjects(driver);
+        authorizationPage.waitForAuthorizationPageLoad();
+        authorizationPage.fillSignInFieldsAndClickSignInButton(user);
+
+        // На главной странице нажимаем кнопку "Личный кабинет" в хедере и входим на страницу аккаунта
+        mainPage = new MainPageObjects(driver);
+        mainPage.waitForMainPageLoad();
+        mainPage.personalAccountLinkClick();
+
+        // ждем загрузку страницы личного кабинета и кликаем кнопку "Выход"
+        ProfilePageObjects profilePage = new ProfilePageObjects(driver);
+        profilePage.isExitButtonVisible();
+        profilePage.exitButtonClick();
+
+        authorizationPage = new AuthorizationPageObjects(driver);
+        authorizationPage.waitForAuthorizationPageLoad();
+
+        //Если на загрузившейся странице видна надпись "Вход", то переход произошел верно
+        assertEquals(authorizationPage.isTitleEntranceVisible(), true);
+
+    }
+
 
     @After
     @Description("Close browser and remove user account if exists")

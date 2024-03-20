@@ -17,6 +17,10 @@ import static org.apache.http.HttpStatus.SC_OK;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
 
+
+// Тестовый класс содержит 2 проверки:
+//  -успешная регистрация
+//  -ошибку для некорректного пороля (менее 6 символов)
 public class TestRegistration {
 
     WebDriver driver;
