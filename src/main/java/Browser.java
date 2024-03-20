@@ -1,20 +1,28 @@
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-//import org.openqa.selenium. сюда Хром!!!
+//import org.openqa.selenium. сюда Яндекс!!!
 
-public class Browser {
+public class Driver {
 
-    public WebDriver getWebDriver(String browserName) {
-        WebDriver driver;
+    WebDriver driver;
+    public Driver(String browserName) {
+        ChromeOptions options = new ChromeOptions(); // Драйвер для браузера
+        options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
         switch (browserName) {
             case "chrome":
-                driver =  new ChromeDriver();
+                WebDriverManager.chromedriver().setup();
+                this.driver = new ChromeDriver();
             case "yandex":
-                driver =  new FirefoxDriver();
+                System.setProperty("webdriver.chrome.driver", "C:/WebDriver/YandexDriver/yandexdriver-24.1.0.2570-win64");
+                options.setBinary("\"C:\\WebDriver\\YandexDriver\\yandexdriver-24.1.0.2570-win64\"");
+                this.driver = new ChromeDriver(options);
+
             default:
-                driver =  new FirefoxDriver();
+                WebDriverManager.firefoxdriver().setup();
+                this.driver = new FirefoxDriver();
         }
-        return driver;
     }
 }
