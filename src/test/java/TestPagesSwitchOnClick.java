@@ -39,7 +39,7 @@ public class TestPagesSwitchOnClick {
 //        Browser testBrowser = new Browser(browserType);
 //        driver = testBrowser.getDriver();
 
-        RestAssured.baseURI = Configuration.URL_STELLAR_BURGERS;
+        RestAssured.baseURI = Configuration.STELLAR_BURGER_URL;
         user = new User();
     }
 
@@ -54,7 +54,7 @@ public class TestPagesSwitchOnClick {
         // Проверяем, произошел ли переход на страницу авторизации: если виден заголовок "Вход", то всё ок
         AuthorizationPageObjects authorizationPage = new AuthorizationPageObjects(driver);
         authorizationPage.waitForAuthorizationPageLoad();
-        assertEquals(authorizationPage.isTitleEntranceVisible(), true);
+        assertTrue(authorizationPage.isTitleEntranceVisible());
     }
 
     @Test
@@ -76,7 +76,7 @@ public class TestPagesSwitchOnClick {
         mainPage.personalAccountLinkClick();
         // Проверяем, произошел ли переход на страницу личного кабинета: если видна ссылка "Выход", то всё ок
         ProfilePageObjects profilePage = new ProfilePageObjects(driver);
-        assertEquals(profilePage.isExitButtonVisible(), true);
+        assertTrue(profilePage.isExitButtonVisible());
     }
 
     @Test
@@ -95,7 +95,7 @@ public class TestPagesSwitchOnClick {
         mainPage = new MainPageObjects(driver);
         mainPage.waitForMainPageLoad();
         // Проверяем, произошел ли переход на главную страницу: если виден заголовок "Соберите бургер", то всё ок
-        assertEquals(mainPage.isTitleDesignBurgerVisible(), true);
+        assertTrue(mainPage.isTitleDesignBurgerVisible());
     }
 
     @Test
@@ -114,7 +114,7 @@ public class TestPagesSwitchOnClick {
         mainPage = new MainPageObjects(driver);
         mainPage.waitForMainPageLoad();
         // Проверяем, произошел ли переход на главную страницу: если виден заголовок "Соберите бургер", то всё ок
-        assertEquals(mainPage.isTitleDesignBurgerVisible(), true);
+        assertTrue(mainPage.isTitleDesignBurgerVisible());
    }
 
     @Test

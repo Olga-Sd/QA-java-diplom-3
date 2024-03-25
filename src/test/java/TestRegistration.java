@@ -16,6 +16,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import static org.apache.http.HttpStatus.SC_OK;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 
 // Тестовый класс содержит 2 проверки:
@@ -39,7 +40,7 @@ public class TestRegistration {
 //        Browser testBrowser = new Browser(browserType);
 //        driver = testBrowser.getDriver();
 
-        RestAssured.baseURI = Configuration.URL_STELLAR_BURGERS;
+        RestAssured.baseURI = Configuration.STELLAR_BURGER_URL;
         user = new User();
 
     }
@@ -90,7 +91,7 @@ public class TestRegistration {
 
         authorizationPage.fillSignUpFieldsAndClickSignUpButton(user);
 
-        assertEquals(authorizationPage.isTooShortPasswordWarningVisible(), true);
+        assertTrue(authorizationPage.isTooShortPasswordWarningVisible());
 
         user.setPassword(pwdKeeper);
 
@@ -109,11 +110,7 @@ public class TestRegistration {
                 token = responseLogin.path("accessToken");
                 UserAPI.deleteUser(user, token);
             }
-
         } catch (NullPointerException e) {
         }
-
     }
-
-
 }

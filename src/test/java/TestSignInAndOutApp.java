@@ -14,6 +14,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 // Тестовый класс содержит проверки для входа и выхода из приложения зарегистрированного пользователя:
 //        -вход по кнопке «Войти в аккаунт» на главной,
@@ -38,7 +39,7 @@ public class TestSignInAndOutApp {
 //        Browser testBrowser = new Browser(browserType);
 //        driver = testBrowser.getDriver();
 
-        RestAssured.baseURI = Configuration.URL_STELLAR_BURGERS;
+        RestAssured.baseURI = Configuration.STELLAR_BURGER_URL;
         user = new User();
         UserAPI.createUser(user);
 
@@ -68,8 +69,7 @@ public class TestSignInAndOutApp {
         ProfilePageObjects profilePage = new ProfilePageObjects(driver);
 
         // Суть проверки: если после загрузки страницы видна кнопка "Выход", то значит пользователь вошел в систему
-        assertEquals(profilePage.isExitButtonVisible(), true);
-
+        assertTrue(profilePage.isExitButtonVisible());
     }
 
     @Test
@@ -89,12 +89,9 @@ public class TestSignInAndOutApp {
         mainPage = new MainPageObjects(driver);
         mainPage.waitForMainPageLoad();
         mainPage.personalAccountLinkClick();
-
         ProfilePageObjects profilePage = new ProfilePageObjects(driver);
-
         // Суть проверки: если после загрузки страницы видна кнопка "Выход", то значит пользователь вошел в систему
-        assertEquals(profilePage.isExitButtonVisible(), true);
-
+        assertTrue(profilePage.isExitButtonVisible());
     }
 
     @Test
@@ -102,12 +99,10 @@ public class TestSignInAndOutApp {
     public void testRegistrationPageSignInButton() {
         driver.get(Configuration.STELLAR_BURGER_URL);
         driver.manage().window().maximize();
-
         // Заходим на главную страницу и кликаем кнопку "Личный кабинет" в хедере
         MainPageObjects mainPage = new MainPageObjects(driver);
         mainPage.waitForMainPageLoad();
         mainPage.personalAccountLinkClick();
-
         // Заходим на страницу авторизации, прокручиваем до ссылки "Зарегистрироваться" и жмем на нее,
         // прокручиваем и переходим по ссылке "Войти", заполняем поля, жмем кнопку "Войти"
         AuthorizationPageObjects authorizationPage = new AuthorizationPageObjects(driver);
@@ -122,12 +117,9 @@ public class TestSignInAndOutApp {
         mainPage = new MainPageObjects(driver);
         mainPage.waitForMainPageLoad();
         mainPage.personalAccountLinkClick();
-
         ProfilePageObjects profilePage = new ProfilePageObjects(driver);
-
         // Суть проверки: если после загрузки страницы видна кнопка "Выход", то значит пользователь вошел в систему
-        assertEquals(profilePage.isExitButtonVisible(), true);
-
+        assertTrue(profilePage.isExitButtonVisible());
     }
 
     @Test
@@ -135,36 +127,27 @@ public class TestSignInAndOutApp {
     public void testPasswordRecoveryPageSignInLink() {
         driver.get(Configuration.STELLAR_BURGER_URL);
         driver.manage().window().maximize();
-
         // Заходим на главную страницу и кликаем кнопку "Личный кабинет" в хедере
         MainPageObjects mainPage = new MainPageObjects(driver);
         mainPage.waitForMainPageLoad();
         mainPage.personalAccountLinkClick();
-
-
         // Заходим на страницу авторизации, прокручиваем до ссылки "Восстановить пароль" и жмем на нее,
-
         AuthorizationPageObjects authorizationPage = new AuthorizationPageObjects(driver);
         authorizationPage.waitForAuthorizationPageLoad();
         authorizationPage.scrollPageTillPasswordRecoveryLinkAndClick();
-
         // прокручиваем страницу восстановления пароля и переходим по ссылке "Войти", заполняем поля, жмем кнопку "Войти"
         PasswordRecoveryPageObjects passwordRecoveryPage = new PasswordRecoveryPageObjects(driver);
         passwordRecoveryPage.scrollPageTillSignInLinkAndClick();
-
         authorizationPage = new AuthorizationPageObjects(driver);
         authorizationPage.waitForAuthorizationPageLoad();
         authorizationPage.fillSignInFieldsAndClickSignInButton(user);
-
         // На главной странице нажимаем кнопку "Личный кабинет" в хедере и входим на страницу аккаунта
         mainPage = new MainPageObjects(driver);
         mainPage.waitForMainPageLoad();
         mainPage.personalAccountLinkClick();
-
         ProfilePageObjects profilePage = new ProfilePageObjects(driver);
 
-        assertEquals(profilePage.isExitButtonVisible(), true);
-
+        assertTrue(profilePage.isExitButtonVisible());
     }
 
     @Test
@@ -193,10 +176,8 @@ public class TestSignInAndOutApp {
         authorizationPage.waitForAuthorizationPageLoad();
 
         //Если на загрузившейся странице видна надпись "Вход", то переход произошел верно
-        assertEquals(authorizationPage.isTitleEntranceVisible(), true);
-
+        assertTrue(authorizationPage.isTitleEntranceVisible());
     }
-
 
     @After
     @Description("Close browser and remove user account if exists")
@@ -211,9 +192,7 @@ public class TestSignInAndOutApp {
                 token = responseLogin.path("accessToken");
                 UserAPI.deleteUser(user, token);
             }
-
         } catch (NullPointerException e) {
         }
-
     }
 }
