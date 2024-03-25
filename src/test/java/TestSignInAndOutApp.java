@@ -76,13 +76,10 @@ public class TestSignInAndOutApp {
     @DisplayName("Login with button 'Personal account' on the main page header")
     public void testMainPageSignInButtonPersonalAccount() {
         driver.get(Configuration.STELLAR_BURGER_URL);
-        driver.manage().window().maximize();
-
         // Заходим на главную страницу и кликаем кнопку "Личный кабинет" в хедере
         MainPageObjects mainPage = new MainPageObjects(driver);
         mainPage.waitForMainPageLoad();
         mainPage.personalAccountLinkClick();
-
         // Заходим на страницу авторизации, заполняем поля, жмем кнопку "Войти"
         AuthorizationPageObjects authorizationPage = new AuthorizationPageObjects(driver);
         authorizationPage.waitForAuthorizationPageLoad();
@@ -172,27 +169,21 @@ public class TestSignInAndOutApp {
 
     @Test
     @DisplayName("Log out with button 'Exit' on the personal Acc page")
-    public void testPerspnalAccExitButton() {
+    public void testPersonalAccExitButton() {
         driver.get(Configuration.STELLAR_BURGER_URL);
-        driver.manage().window().maximize();
-
         UserAPI.createUser(user);
-
         // Заходим на главную страницу и кликаем кнопку "Войти в аккаунт"
         MainPageObjects mainPage = new MainPageObjects(driver);
         mainPage.waitForMainPageLoad();
         mainPage.signInButtonClick();
-
         // Заходим на страницу авторизации, заполняем поля, жмем кнопку "Войти"
         AuthorizationPageObjects authorizationPage = new AuthorizationPageObjects(driver);
         authorizationPage.waitForAuthorizationPageLoad();
         authorizationPage.fillSignInFieldsAndClickSignInButton(user);
-
         // На главной странице нажимаем кнопку "Личный кабинет" в хедере и входим на страницу аккаунта
         mainPage = new MainPageObjects(driver);
         mainPage.waitForMainPageLoad();
         mainPage.personalAccountLinkClick();
-
         // ждем загрузку страницы личного кабинета и кликаем кнопку "Выход"
         ProfilePageObjects profilePage = new ProfilePageObjects(driver);
         profilePage.isExitButtonVisible();
